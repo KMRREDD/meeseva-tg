@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Telangana MeeSeva Center</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #f0f8ff;
+      color: #333;
+      background-image: url('1a.jpg'); /* Big background logo image */
+      background-size: 1000px;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+    }
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #f4f6f8;
+      color: #333;
+    }
+    
+
+    header {
+      background: #f0740e;
+      color: white;
+      padding: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    nav a {
+      color: white;
+      margin: 0 10px;
+      text-decoration: none;
+      font-weight: bold;
+      padding: 8px 12px;
+      border-radius: 6px;
+      transition: all 0.3s ease;
+    }
+
+    nav a:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    /* 🔁 Services Link Special Style */
+    .services-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 6px;
+      transition: all 0.3s ease;
+    }
+
+    .services-link img {
+      width: 20px;
+      height: 20px;
+      transition: transform 0.4s ease;
+    }
+
+    .services-link:hover {
+      background: rgba(255, 255, 255, 0.3);
+    }
+
+    .services-link:hover img {
+      transform: rotate(360deg);
+    }
+
+    .hero {
+      background: linear-gradient(90deg, #90e0ef, #48cae4);
+      color: #000;
+      padding: 30px;
+      text-align: center;
+    }
+
+    .card-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 20px;
+      padding: 20px;
+    }
+
+    .card {
+      background: white;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+    }
+
+    #voice button {
+      background: #0077b6;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      margin: 10px 0;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    footer {
+      background: #023e8a;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+     nav {
+      display: flex;
+      gap: 20px;
+    }
+
+    .nav-link {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: white;
+      text-decoration: none;
+      padding: 10px 14px;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      font-weight: bold;
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .nav-link img {
+      width: 20px;
+      height: 20px;
+      transition: transform 0.4s ease;
+    }
+
+    .nav-link:hover {
+      background: #00b4d8;
+      color: #000;
+      box-shadow: 0 0 15px #90e0ef;
+    }
+
+    .nav-link:hover img {
+      transform: rotate(360deg);
+    }
+     .float-img {
+    width: 180px;
+    animation: float 3s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-20px);
+    }
+  }
+  .card {
+      background: #e4d7d7;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+
+    .card:hover {
+      transform: scale(1.03);
+    }
+
+    .rotate-logo {
+      width: 100px;
+      height: auto;
+      transition: transform 0.6s ease-in-out;
+      display: block;
+      margin: 0 auto 10px;
+    }
+
+    .rotate-logo:hover {
+      transform: rotateY(360deg); /* Horizontal rotate */
+    }
+
+    .card a {
+      text-decoration: none;
+      color: #333;
+      font-size: 18px;
+      display: block;
+      margin-top: 10px;
+    }
+
+    .card a:hover {
+      color: #007BFF;
+    }
+  </style>
+  <script>
+    function speakText() {
+      const text = document.getElementById('text').innerText;
+      const speech = new SpeechSynthesisUtterance(text);
+      speech.lang = 'en-IN';
+      speech.rate = 1;
+      window.speechSynthesis.speak(speech);
+    }
+    
+  </script>
+</head>
+<body>
+
+  <header>
+    <!-- Logo Left Side -->
+    <h1>
+      <img src="1a.jpg" alt="MeeSeva Logo" width="300">
+    </h1>
+
+    <!-- Navigation -->
+    <!-- <nav>
+      <a href="#notices">Notices</a>
+      <a href="#contact">Contact</a>
+      Services Link with Icon
+      <a href="#services" class="services-link">
+        <img src="https://cdn-icons-png.flaticon.com/512/1087/1087815.png" alt="services icon">
+        Services
+      </a>
+    </nav> -->
+    <nav>
+      <a href="#home" class="nav-link">
+        <img src="https://cdn-icons-png.flaticon.com/512/1946/1946436.png" alt="home"> Home
+      </a>
+      <a href="#services" class="nav-link">
+        <img src="https://cdn-icons-png.flaticon.com/512/1087/1087815.png" alt="services"> Services
+      </a>
+      <a href="#notices" class="nav-link">
+        <img src="https://cdn-icons-png.flaticon.com/512/1827/1827381.png" alt="notices"> Notices
+      </a>
+      <a href="#contact" class="nav-link">
+        <img src="https://cdn-icons-png.flaticon.com/512/724/724664.png" alt="contact"> Contact
+      </a>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <h2>Welcome to MeeSeva Mahabubnagar <img src="1a.jpg" alt="global logo" class="float-img" ></h2>
+    <marquee>🔥 Aadhar | PAN | Ration | TTD Tickets | Student Applications | Government Schemes 🔥</marquee>
+  </section>
+
+  <!-- Services Section -->
+  <section id="services">
+    <h2 style="text-align: center;">Our Services</h2>
+    <div class="card-container">
+       <div class="card">
+    <a href="aadhaar.html">
+      <img src="https://tse3.mm.bing.net/th/id/OIP.4-Kl1c-ds0UryCozSwGTwwHaDz?pid=Api&P=0&h=180" alt="Aadhaar Logo" class="rotate-logo">
+      Aadhaar Update
+    </a>
+  </div>
+  <div class="card">
+    <a href="ration.html">
+      <img src="https://scm.telangana.gov.in/SCM/resources/Images/4.jpg" alt="Aadhaar Logo" class="rotate-logo">
+      Ration Card
+    </a>
+  </div>
+      <!-- <div class="card"><a href="ration.html">Ration Card</a></div> -->
+        <div class="card">
+    <a href="pan.html">
+      <img src="https://tse2.mm.bing.net/th/id/OIP.tAl3l5R1dozRfWqScegW3QHaEa?pid=Api&P=0&h=180" alt="Aadhaar Logo" class="rotate-logo">
+      Pan Update
+    </a>
+  </div>
+      <div class="card">
+    <a href="insurance.html">
+      <img src="https://tse2.mm.bing.net/th/id/OIP.t60iKtuXcN_4-k2nBhiH3AHaDF?pid=Api&P=0&h=180" alt="Aadhaar Logo" class="rotate-logo">
+      Insurance
+    </a>
+  </div>
+  <div class="card">
+    <a href="ttd.html">
+      <img src="https://tse4.mm.bing.net/th/id/OIP.1r3RmumcVSMvomqA0zJvzwHaHa?pid=Api&P=0&h=180" alt="Aadhaar Logo" class="rotate-logo">
+      TTD Tickets Booking
+    </a>
+  </div>
+  <div class="card">
+    <a href="schloarship.html">
+      <img src="https://www.uccnorwichny.org/wp-content/uploads/2021/02/cap_20277c-scaled.jpg" alt="Aadhaar Logo" class="rotate-logo">
+      Scholarships
+    </a>
+  </div>
+      <div class="card">
+    <a href="landschme.html">
+      <img src="https://tse1.mm.bing.net/th/id/OIP.i054SOSNMMSCxcrinXy4dAHaE7?pid=Api&P=0&h=180" alt="Aadhaar Logo" class="rotate-logo">
+      Lands/plots Schems/works
+    </a>
+  </div>
+       <div class="card">
+    <a href="#">
+      <img src="https://tse1.mm.bing.net/th/id/OIP.Lz057hUIgSCPM-cgeiRfFwAAAA?pid=Api&P=0&h=180" alt="Aadhaar Logo" class="rotate-logo">
+      Train /Bus Tickets
+    </a>
+  </div>
+      
+      
+      <div class="card"><a href="insuran2.html">Insurances</a></div>
+    </div>
+  </section>
+
+  <!-- Voice Section -->
+  <section id="voice">
+    <h2 style="text-align: center;">Know About Services</h2>
+    <img src="assets/images/services.png" alt="MeeSeva Services" width="100%">
+    <button onclick="speakText()">🔊 Play Voice Explanation</button>
+    <p id="text">MeeSeva center provides all services like Aadhaar, PAN, Ration, TTD, and many more...</p>
+  </section>
+
+  <!-- Notices Section -->
+  <section id="notices">
+    <h2 style="text-align: center;">Important Notices</h2>
+    <marquee direction="up" scrollamount="2" height="100px">
+      <p>✅ Last date for Scholarship: 30th July</p>
+      <p>✅ Ration card update camp open</p>
+      <p>✅ TTD tickets available now</p>
+    </marquee>
+  </section>
+<a href="index.html"></a>
+  <!-- Footer -->
+  <footer id="contact">
+    <h3>Contact Us</h3>
+    <p>Global MeeSeva, Near Old RTO Office, Mahabubnagar</p>
+    <p>📞 8180000000 | 📧 maaaaaaa@gmail.com</p>
+  </footer>
+
+</body>
+</html>

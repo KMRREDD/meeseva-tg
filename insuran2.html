@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Insurance Cards</title>
+  <style>
+    /* Import Google Font */
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+      background: url('https://images.unsplash.com/photo-1588776814546-b5f8faea1660?auto=format&fit=crop&w=1920&q=80') no-repeat center center fixed;
+      background-size: cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .card {
+      width: 85%;
+      max-width: 1100px;
+      height: 280px;
+      border-radius: 15px;
+      background: rgba(0, 0, 0, 0.5);
+      display: flex;
+      gap: 10px;
+      padding: 1em;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(8px);
+    }
+
+    .card p {
+      flex: 1;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid #ffffff30;
+      border-radius: 10px;
+      color: #fff;
+      text-align: center;
+      transition: all 0.5s ease;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .card p:hover {
+      flex: 2;
+      background: rgba(255, 255, 255, 0.2);
+      transform: scale(1.03);
+    }
+
+    .card img {
+      width: 70px;
+      height: 70px;
+      margin-bottom: 15px;
+    }
+
+    .card span {
+      font-size: 1.1em;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .card button {
+      background-color: #ff5a91;
+      border: none;
+      padding: 8px 18px;
+      color: #fff;
+      border-radius: 5px;
+      font-size: 0.95em;
+      margin-top: 10px;
+      transition: background 0.3s ease;
+    }
+
+    .card button:hover {
+      background-color: #e13f74;
+    }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <!-- Health Insurance -->
+  <p onclick="location.href='health_insurance.html'">
+    <img src="https://cdn-icons-png.flaticon.com/512/2947/2947981.png" alt="Health Insurance">
+    <span>Health Insurance</span>
+    <button>Explore</button>
+  </p>
+
+  <!-- Vehicle Insurance -->
+  <p onclick="location.href='vehicle_insurance.html'">
+    <img src="https://cdn-icons-png.flaticon.com/512/743/743007.png" alt="Vehicle Insurance">
+    <span>Vehicle Insurance</span>
+    <button>Explore</button>
+  </p>
+
+ <p>
+  <img src="https://cdn-icons-png.flaticon.com/512/2966/2966486.png" alt="Govt Health Insurance">
+  <span>Govt Health</span>
+  <button onclick="window.open('https://ekyc.aarogyasri.telangana.gov.in/digicard/', '_blank')">Explore</button>
+</p>
+
+</div>
+ <a href="insurance.html">🏠 Back to Home</a>
+</body>
+</html>
