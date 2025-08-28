@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Digital Services </title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800;900&family=Orbitron:wght@600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg: #070B14;
+      --card: rgba(255,255,255,0.06);
+      --card-border: rgba(255,255,255,0.12);
+      --text: #E8EEF9;
+      --muted: #A9B2C7;
+      --accent1: #6EE7FF;  /* cyan */
+      --accent2: #9b8CFF;  /* violet */
+      --accent3: #00FFB2;  /* mint */
+      --glow: 0 0 40px rgba(110,231,255,.35), 0 0 80px rgba(155,140,255,.2);
+      --radius-xl: 18px;
+      --radius-2xl: 26px;
+      --shadow-soft: 0 10px 30px rgba(0,0,0,.45);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, 'Helvetica Neue', Arial, 'Noto Sans', 'Apple Color Emoji', 'Segoe UI Emoji';
+      background: radial-gradient(1200px 600px at 20% -10%, rgba(110,231,255,.1), transparent 60%),
+                  radial-gradient(900px 500px at 80% -10%, rgba(155,140,255,.12), transparent 60%),
+                  linear-gradient(180deg, #05060B, #0A0F1E);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+      overflow-x: hidden;
+    }
+    /* Header */
+    .header{
+      position: sticky; top: 0; z-index: 50; backdrop-filter: saturate(1.4) blur(10px);
+      background: linear-gradient(180deg, rgba(5,7,15,.7), rgba(5,7,15,.35));
+      border-bottom: 1px solid var(--card-border);
+    }
+    .container{max-width:1200px; margin:0 auto; padding: 16px 20px;}
+    .brand{
+      display:flex; align-items:center; gap:14px;
+    }
+    .logo{
+      width:52px; height:52px; border-radius:14px; 
+      background: conic-gradient(from 210deg, var(--accent1), var(--accent2), var(--accent3), var(--accent1));
+      filter: drop-shadow(0 0 20px rgba(110,231,255,.3));
+      position: relative; overflow: hidden; border: 1px solid rgba(255,255,255,.18);
+    }
+    .logo::after{
+      content:""; position:absolute; inset:2px; border-radius:12px;
+      background: radial-gradient(200px 200px at 30% 20%, rgba(255,255,255,.25), transparent 30%),
+                  rgba(0,0,0,.35);
+    }
+    .title{
+      font-family: 'Orbitron', sans-serif; letter-spacing: .5px; line-height:1;
+      font-size: clamp(24px, 2.4vw, 34px);
+      text-transform: uppercase;
+      display:flex; flex-direction:column;
+    }
+    .title span.small{ font-size:12px; letter-spacing: 2px; color: var(--muted); margin-top:6px}
+
+    /* Hero ribbon */
+    .hero{
+      position: relative; padding: 26px 20px 18px; overflow: visible;
+    }
+    .ribbon{
+      display:flex; gap: 10px; align-items:center; justify-content:space-between; flex-wrap:wrap;
+      padding: 14px; border-radius: var(--radius-xl);
+      background: linear-gradient(160deg, rgba(110,231,255,.12), rgba(155,140,255,.1));
+      border:1px solid var(--card-border);
+      box-shadow: var(--shadow-soft);
+    }
+    .searchbar{flex:1; min-width: 240px; display:flex; gap:10px}
+    .input, .select{
+      width:100%; font-size:14px; padding: 12px 14px; border-radius: 12px; outline:none; color: var(--text);
+      border:1px solid rgba(255,255,255,.14); background: rgba(255,255,255,.06);
+    }
+    .select{ width:210px }
+    .chipbar{ display:flex; gap:10px; flex-wrap:wrap }
+    .chip{
+      padding:9px 12px; border-radius:999px; border:1px solid rgba(255,255,255,.15);
+      background: rgba(255,255,255,.04); color: var(--text); font-size:13px; cursor:pointer;
+      transition: .2s transform, .2s background;
+    }
+    .chip.active{ background: linear-gradient(90deg, rgba(110,231,255,.2), rgba(155,140,255,.23)); box-shadow: var(--glow) }
+    .chip:hover{ transform: translateY(-1px) }
+
+    /* Grid */
+    .grid{
+      padding: 24px 0 70px; display:grid; grid-template-columns: repeat( auto-fit, minmax(260px, 1fr) ); gap: 18px;
+    }
+    .card{
+      position: relative; overflow:hidden; border-radius: var(--radius-2xl);
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      border:1px solid var(--card-border); box-shadow: var(--shadow-soft);
+      transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+    }
+    .card:hover{ transform: translateY(-4px); box-shadow: 0 20px 50px rgba(0,0,0,.6); border-color: rgba(255,255,255,.28) }
+    .thumb{ width:100%; height:148px; background: #0E1426; display:block; object-fit: cover; }
+    .content{ padding:16px }
+    .h3{ margin:0 0 6px; font-weight:800; font-size: 18px }
+    .purpose{ color: var(--muted); font-size: 13px; line-height:1.45; min-height: 38px }
+    .uses{ display:flex; gap:8px; flex-wrap:wrap; margin-top:10px }
+    .tag{ font-size: 11px; padding:6px 8px; border-radius: 999px; border:1px solid rgba(255,255,255,.16); background: rgba(255,255,255,.05) }
+    .row{ display:flex; align-items:center; justify-content:space-between; gap:10px; margin-top:12px }
+    .btn{
+      appearance:none; border:none; cursor:pointer; font-weight:700; letter-spacing:.2px; font-size: 13px;
+      padding: 10px 14px; border-radius: 12px; color:#07101D; background: linear-gradient(90deg, var(--accent3), var(--accent1));
+      box-shadow: inset 0 -2px rgba(0,0,0,.2), 0 0 20px rgba(110,231,255,.25);
+    }
+    .btn.secondary{ color: var(--text); background: rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.14) }
+
+    /* Side robots (rotating + walking) */
+    .side-bots{ position: fixed; inset: 0; pointer-events: none; }
+    .bot{ position:absolute; width: 70px; opacity: .75; filter: drop-shadow(0 0 14px rgba(110,231,255,.35)); }
+    .bot.left{ left: -20px; animation: walkY 14s linear infinite, spin 6s linear infinite; }
+    .bot.right{ right: -20px; animation: walkY 16s linear infinite reverse, spin 7s linear infinite reverse; }
+    @keyframes walkY{ 0%{ transform: translateY(110vh) } 100%{ transform: translateY(-20%) } }
+    @keyframes spin{ from{ rotate: 0deg } to{ rotate: 360deg } }
+
+    /* Footer */
+    footer{ padding: 30px 0 60px; color: var(--muted); text-align:center; border-top: 1px solid var(--card-border) }
+
+    /* Utilities */
+    .hidden{ display:none !important }
+    .srch{ flex: 1 }
+  </style>
+</head>
+<body>
+  <!-- Side robots -->
+  <div class="side-bots" aria-hidden="true">
+    <svg class="bot left" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="64" cy="64" r="60" fill="url(#g1)" stroke="rgba(255,255,255,.3)"/>
+      <defs>
+        <radialGradient id="g1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(44 44) rotate(45) scale(84)">
+          <stop stop-color="#6EE7FF" stop-opacity=".9"/>
+          <stop offset="1" stop-color="#6E00FF" stop-opacity=".15"/>
+        </radialGradient>
+      </defs>
+      <rect x="36" y="40" width="56" height="40" rx="10" fill="#0E172A" stroke="rgba(255,255,255,.5)"/>
+      <circle cx="56" cy="60" r="6" fill="#6EE7FF"/>
+      <circle cx="72" cy="60" r="6" fill="#6EE7FF"/>
+      <rect x="58" y="82" width="12" height="14" rx="4" fill="#6EE7FF"/>
+    </svg>
+    <svg class="bot right" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="64" cy="64" r="60" fill="url(#g2)" stroke="rgba(255,255,255,.3)"/>
+      <defs>
+        <radialGradient id="g2" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(84 44) rotate(45) scale(84)">
+          <stop stop-color="#00FFB2" stop-opacity=".9"/>
+          <stop offset="1" stop-color="#0033FF" stop-opacity=".15"/>
+        </radialGradient>
+      </defs>
+      <rect x="36" y="40" width="56" height="40" rx="10" fill="#0E172A" stroke="rgba(255,255,255,.5)"/>
+      <circle cx="56" cy="60" r="6" fill="#00FFB2"/>
+      <circle cx="72" cy="60" r="6" fill="#00FFB2"/>
+      <rect x="58" y="82" width="12" height="14" rx="4" fill="#00FFB2"/>
+    </svg>
+  </div>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="container" style="display:flex; align-items:center; justify-content:space-between; gap:16px;">
+      <div class="brand">
+        <div class="logo"></div>
+        <div class="title">
+          <span> Digital Serivices Store</span>
+          <span class="small">Govt • Pravt • Digital</span>
+        </div>
+      </div>
+      <div class="chipbar" id="quickFilters">
+        <!-- populated by JS -->
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero / Controls -->
+  <section class="container hero">
+    <div class="ribbon">
+      <div class="searchbar">
+        <input id="search" class="input srch" placeholder="Search tools, uses, tags… (e.g., 'remove bg', 'Django', 'video')"/>
+        <select id="sort" class="select" title="Sort by">
+          <option value="name">Sort: Name</option>
+          <option value="category">Sort: Category</option>
+          <option value="popular">Sort: Popular</option>
+        </select>
+      </div>
+      <div class="chipbar" id="categoryChips"></div>
+    </div>
+  </section>
+
+  <!-- Grid -->
+  <main class="container">
+    <div id="grid" class="grid"></div>
+  </main>
+
+  <footer>
+    Built with ❤️ for Mahesh by your AI buddy. Tip: Click category chips to filter. Use the search box to quickly find any tool.
+  </footer>
+
+  <script>
+    // ---- Data ----
+    const tools = [
+      // New Upadate Sevices
+      {
+        name: 'JANSAMARTH',
+        category: 'New Upadate Sevices',
+        purpose: 'Jansamarth Portal ద్వారా ప్రభుత్వం ఇచ్చే రుణాలు, సబ్సిడీలు ఒకే చోట దరఖాస్తు చేసుకోవచ్చు',
+        image: 'https://www.jansamarth.in/assets/images/website_images/newLending_img/jan-samarth-logo.svg',
+        link: 'https://www.jansamarth.in/home',
+        uses: ['Study loans,Business Loans', 'Agriculture loan more'],
+        popular: 98
+      },
+      {
+        name: 'VOTER ECI',
+        category: 'New Upadate Sevices',
+        purpose: 'Voter ID ఓటు హక్కు కోసం, అలాగే ID & Address proof కోసం ఉపయోగపడుతుంది.',
+        image: 'https://tse3.mm.bing.net/th/id/OIP.tsCnydLVQRJXW9cRDizd1gHaHa?pid=Api&P=0&h=180',
+        link: 'https://voters.eci.gov.in/',
+        uses: ['aadhar', 'mobile number', 'photho'],
+        popular: 98
+      },
+      {
+        name: 'MY AADHAR',
+        category: 'New Upadate Sevices',
+        purpose: 'AAdhar Downold.Adress,change',
+        image: 'https://myaadhaar.uidai.gov.in/static/media/aadhaar_english_logo.9a2d63795a7f7bdd7acb2148585336be.svg',
+        link: 'https://myaadhaar.uidai.gov.in/',
+        uses: ['Mask AAdhar', 'Status', 'BAnkSeeding Status'],
+        popular: 98
+      },
+      {
+        name: '',
+        category: 'New Upadate Sevices',
+        purpose: '',
+        image: '',
+        link: '',
+        uses: ['', '', ''],
+        popular: 98
+      },
+     
+     
+      {
+        name: 'remove.bg',
+        category: 'New Upadate Sevices',
+        purpose: '1‑click background removal for photos. Great for product images and ID photos.',
+        image: 'https://static.remove.bg/static/5f8a1f7c8b0e2d0001aa8a5a/img/logo.svg',
+        link: 'https://www.remove.bg/',
+        uses: ['BG Remove', 'Product'],
+        popular: 85
+      },
+      
+     
+
+      // 'Insurances
+      {
+        name: 'IFFCOTOKIO INSURANCE',
+        category: 'Insurances',
+        purpose: 'Thirdparty,health,motors etc...',
+        image: 'https://online.iffcotokio.co.in/itgicscportal/images/logo.png',
+        link: 'https://online.iffcotokio.co.in/itgicscportal/csc.do?product=HEALTH',
+        uses: ['Personal Accedent', 'Vechicle', 'Health',"More"],
+        popular: 92
+      },
+      {
+        name: 'HDFCERGO INSURANCE',
+        category: 'Insurances',
+        purpose: 'Health,Third Parthy, Vechicles new and Renwal.',
+        image: 'https://hepgw.hdfcergo.com/CSChdfcergo/Images/logo.png',
+        link: 'https://hepgw.hdfcergo.com/CSChdfcergo/cscconnect.aspx',
+        uses: ['Vechicle ', 'Health ,More'],
+        popular: 78
+      },
+      {
+        name: 'CHOLA INSURANCE',
+        category: 'Insurances',
+        purpose: 'Chola Insurance జీవితం, ఆరోగ్యం, వాహనాలు, ఇల్లు, బిజినెస్ భద్రత కోసం సేవలు అందిస్తుంది..',
+        image: 'https://epolicy.cholainsurance.com/epolicy/images/chola_login_logo.png',
+        link: 'https://epolicy.cholainsurance.com/epolicy/logon/CSCLogin.aspx',
+        uses: ['H/L:AADHAR,Mobile,Pan,Voter,Photho,Email ', 'V/S:Driving License,RC (Registration Certificate) of Vehicle,Previous Insurance Policy (if renewal),Driving License,Pollution Certificate (PUC) ,More'],
+        popular: 78
+      },
+      {
+        name: 'Digit Insurance',
+        category: 'Insurances',
+        purpose: 'Health,Third Parthy, Vechicles new and Renwal.',
+        image: 'https://d2h44aw7l5xdvz.cloudfront.net/digitPlusAssets/digitplus.svg',
+        link: 'https://plus.godigit.com/#/CSC-Connect',
+        uses: ['Vechicle ', 'Health ,More'],
+        popular: 78
+      },
+      {
+        name: 'UNIVERSAL-SOMPO INSURANCE',
+        category: 'Insurances',
+        purpose: 'Health,Third Parthy, Vechicles new and Renwal.',
+        image: 'https://www.universal-sompo.net.in/CSCLogin/img/spmpo.jpg',
+        link: 'https://www.universal-sompo.net.in/CSCLogin/CSCLogin.aspx',
+        uses: ['Vechicle ', 'Health ,More'],
+        popular: 78
+      },
+      {
+        name: 'SBI GENERAL INSURANCE',
+        category: 'Insurances',
+        purpose: 'Health,Third Parthy, Vechicles new and Renwal.',
+        image: 'https://tse3.mm.bing.net/th/id/OIP.glKhMUBNP1_KtyzTenJy7gHaHa?pid=Api&P=0&h=180',
+        link: 'https://dip.sbigeneral.in/Dashboard?n=FziwMQ8Hj4EfTSSXEwd0duw0KNJdLR717LIpNMijgKbxvcmXGdBFfxHIhcJrQgIpltYYotstFfaytofEJEnM5OGdKfT25Lv5iqLJ2op2GB3Yqko02JAMZQT9Yu7jBpdNCWEZFB2CL%2bV4BYzMbhk%2f4tpitM2MADPta9kiJVc84unIe%2fYG34F7erD741P8ls0pTl0TuTZHOknZsocsoyixxcjtancimeJvQDYsd5PZTCqWVufgnbuKi49MoLB9y6rhZZ5TpeIYoTYskX4NuVn175qLDicqxiid0V877sucjTsEBMYZR9Sn48rxuTWV0NZLvviwMBaQ%2b855Og5mZdmN4w%3d%3d',
+        uses: ['Vechicle ', 'Health ,More'],
+        popular: 78
+      },
+      {
+        name: 'NewIndia.co Insurance',
+        category: 'Insurances',
+        purpose: 'Health,Third Parthy, Vechicles new and Renwal.',
+        image: 'https://tse3.mm.bing.net/th/id/OIP.uDAe9lK73H1FXm0tEFLNvwHaC9?pid=Api&P=0&h=180',
+        link: 'https://web.newindia.co.in/NIABancsPortal/#/partnerHome?partner=CSC',
+        uses: ['Vechicle ', 'Health ,More'],
+        popular: 78
+      },
+      {
+        name: 'Bajajallianz Insurance',
+        category: 'Insurances',
+        purpose: 'Health,Third Parthy, Vechicles new and Renwal.',
+        image: 'https://partner.bajajallianz.com/cdn/images/logo.png',
+        link: 'https://webservices.bajajallianz.com/CSC/login.jsp',
+        uses: ['Vechicle ', 'Health ,More'],
+        popular: 78
+      },
+      {
+        name: 'Reliance General Insurance',
+        category: 'Insurances',
+        purpose: 'Health,Third Parthy, Vechicles new and Renwal.',
+        image: 'https://smartzone.reliancegeneral.co.in:8443/Content/images/rgen_logo.png',
+        link: 'https://smartzone.reliancegeneral.co.in:8443/Login/LoginCSC',
+        uses: ['Vechicle ', 'Health ,More'],
+        popular: 78
+      },
+      {
+        name: 'Star Health Insurance',
+        category: 'Insurances',
+        purpose: 'Health,Third Parthy, Vechicles new and Renwal.',
+        image: 'https://d28c6jni2fmamz.cloudfront.net/star_health_new_logo_4a65bab316.svg',
+        link: 'https://atom.starhealth.in/create_proposal?type=posp&token=bad2f675-7565-ad9f-7287&source=csc&empId=661771130018&intermediaryId=CS0000000001&cscType=rap',
+        uses: ['Vechicle ', 'Health ,More'],
+        popular: 78
+      },
+
+      // Central Govt Services
+       {
+        name: 'PM Vishwakarma Yojana',
+        category: 'Central Govt Services',
+        purpose: 'This article provides details about the Pradhan Mantri Vishwakarma Yojana features, eligibility, benefits, interest rate and online application process. Basic training and advanced training with a stipend of Rs. 500 per day. e-voucher worth up to Rs. 15,000 at the start of basic skill training..',
+        image: 'https://tse3.mm.bing.net/th/id/OIP.zKFFc6h5GC2lv4bn9commAHaEK?pid=Api&P=0&h=180',
+        link: 'https://pmvishwakarma.gov.in/',
+        uses: ['AADHAR', 'Ration', 'Bank Account,mobile Number '],
+        popular: 95
+      },
+       {
+        name: 'PM SYM',
+        category: 'Central Govt Services',
+        purpose: 'Pradhan Mantri Shram Yogi Maandhan is a government scheme meant for old age protection and social security of Unorganized workers."Elgibility"1. For Unorganized Workers (UW) 2. Entry Age between 18 to 40 years, 3. Monthly Income up to Rs 15000/ /Features:  Assured Pension of Rs. 3000/- month 2.Voluntary and Contributory Pension Scheme 3. Matching Contribution by the Government of India"  ',
+        image: 'https://tse1.mm.bing.net/th/id/OIP.7e7CCorP9WG6SDAc4jat5gHaEK?pid=Api&P=0&h=180',
+        link: 'https://maandhan.in/',
+        uses: ['AAdhar,Bank Acount', 'Aadhar link Mobile', 'Nomine Aadhar'],
+        popular: 95
+      },
+      {
+        name: 'PM Kisan',
+        category: 'Central Govt Services',
+        purpose: 'Aadhar,PattaBook,Ration CArd,Mobile AadharLink.',
+        image: 'https://tse1.mm.bing.net/th/id/OIP.39NJUN109UOjUSaU9V_-UgHaHa?pid=Api&P=0&h=180',
+        link: 'https://pmkisan.gov.in/',
+        uses: ['New Apply', 'Registation', 'correction'],
+        popular: 95
+      },
+      {
+        name: 'UTI PAN SERVICE',
+        category: 'Central Govt Services',
+        purpose: 'Aadhar,Photho,Sign,Email,Mobile.',
+        image: 'https://tse3.mm.bing.net/th/id/OIP.kKto0Qxajp190qk7oIIsMgHaHa?pid=Api&P=0&h=180',
+        link: 'https://www.myutiitsl.com/panonlineservices/CSCLogin',
+        uses: ['New Apply', , 'correction'],
+        popular: 95
+      },
+      {
+        name: 'ESHRAM',
+        category: 'Central Govt Services',
+        purpose: '2lakhs insurace and all govt schems elgible.',
+        image: 'https://eshramwebportal-megh.azureedge.net/nduwwsmedia/themes/images/e-shram-logo-english.png',
+        link: 'https://eshram.gov.in/',
+        uses: ['AAdhar,nominee addhar', 'Bank Account,cell'],
+        popular: 83
+      },
+        {
+        name: 'NSDL PAN',
+        category: 'Central Govt Services',
+        purpose: 'NSDL PAn Mobile and Email Link Kyc Update Only.',
+        image: 'https://up.yimg.com/ib/th/id/OIP.yi3tbojxrl8volxGy_vtQAHaE8?pid=Api&rs=1&c=1&qlt=95&w=119&h=79',
+        link: 'https://onlineservices.proteantech.in/paam/endUserAddressUpdate.html',
+        uses: ['Mobile', 'Email'],
+        popular: 83
+      },
+        {
+        name: 'CPGRAMS',
+        category: 'Central Govt Services',
+        purpose: 'Govt  Schems any Issues Complant.',
+        image: 'https://pgportal.gov.in/Images/iconHome/logo.png',
+        link: 'https://pgportal.gov.in/Signin',
+        uses: ['Insurance,Pension', 'Land Issues any Complant'],
+        popular: 83
+      },
+
+
+      //  'Exams',
+      {
+        name: 'CSC-Olypaid',
+        category: 'Exams',
+        purpose: 'Exam is Online and gites certficartes ,scholar Ship',
+        image: 'https://cscolympiad.org/csc-olympiad/images/csc-olympiad-logo.png',
+        link: 'https://cscolympiad.org/csc-olympiad/',
+        uses: ['Photho', 'Aadhar,email,mobile', 'School Bonfied,and id Card'],
+        popular: 99
+      },
+      {
+        name: 'Cymath',
+        category: 'Exams',
+        purpose: 'Only MAths Subject',
+        image: 'https://www.cymath.com/img/cymath_logo_v5.svg',
+        link: 'https://www.cymath.com/',
+        uses: ['Simplify ,Factor ', 'Integrate ,Expand Differentiate ,Factor', 'Graph'],
+        popular: 99
+      },
+      
+
+      // Results'
+      {
+        name: '',
+        category: 'Results',
+        purpose: '',
+        image: '',
+        link: '',
+        uses: ['', '', ''],
+        popular: 86
+      },
+      {
+        name: '',
+        category: 'Results',
+        purpose: '',
+        image: '',
+        link: '',
+        uses: ['', '', ''],
+        popular: 86
+      },
+      {
+        name: '',
+        category: 'Results',
+        purpose: '',
+        image: '',
+        link: '',
+        uses: ['', '', ''],
+        popular: 86
+      },
+       
+      // State Govt Services 
+       {
+        name: 'Fsc Card',
+        category: 'State Govt Services ',
+        purpose: 'RAtion CArd Status',
+        image: 'https://epds.telangana.gov.in/FoodSecurityAct/images/epdsbannernew.png' ,
+        link: 'https://epds.telangana.gov.in/FoodSecurityAct/',
+        uses: ['Downold', 'status'],
+        popular: 80
+      },
+      {
+        name: '',
+        category: 'State Govt Services ',
+        purpose: '',
+        image: '',
+        link: '',
+        uses: ['', ''],
+        popular: 80
+      },
+      
+
+      // Business
+       {
+        name: 'Pan Card Find',
+        category: 'Business',
+        purpose: 'forgot pan pan Number Search .',
+        image: 'https://tse4.mm.bing.net/th/id/OIP.c2Hb_9PrE7iWmE8dukJ5IQHaD4?pid=Api&P=0&h=180',
+        link: 'https://www.digiefind.in/',
+        uses: [, ,'Aadhar'],
+        popular: 84
+      },
+      {
+        name: 'Kisan Estore',
+        category: 'Business',
+        purpose: 'VLE LOGI Select And Need Framing Products .',
+        image: 'https://www.kisanestore.in/image/data/kes-new.png?v=2',
+        link: 'https://www.kisanestore.in/',
+        uses: [, ,'Feetilizer','seed etc...'],
+        popular: 84
+      },
+      {
+        name: 'IRCTC & Flight',
+        category: 'Business',
+        purpose: 'IRCTC Travel Booking .',
+        image: 'https://cscsafar.in/assets/img/logo.jpeg',
+        link: 'https://cscsafar.in/',
+        uses: [, 'Train ,Flight Ticket Booking','TATKAL','General','Ac/ Sleeper'],
+        popular: 84
+      },
+      {
+        name: 'Bank Statement',
+        category: 'Business',
+        purpose: 'Any Bank Bank Statement Give.',
+        image: 'https://csc.finduit.in/images/Finduit-logo.svg',
+        link: 'https://csc.finduit.in/dashboard',
+        uses: ['Pan', 'Mobile', 'Bank Book'],
+        popular: 90
+      },
+      {
+        name: 'EVahan',
+        category: 'Business',
+        purpose: 'Vechicle Transport Service',
+        image: 'https://www.csctransport.in/img/login-hero.png',
+        link: 'https://www.csctransport.in/',
+        uses: ['Vechcle Licence Downold', 'Mobile Upadte etc..'],
+        popular: 83
+      }
+    ];
+
+    const categories = [
+      'All',
+      'New Upadate Sevices',
+      'Insurances',
+      'Central Govt Services',
+      'Exams',
+      'Results',
+      'State Govt Services ',
+      'Business',
+      
+    ];
+
+    // ---- DOM ----
+    const grid = document.getElementById('grid');
+    const categoryChips = document.getElementById('categoryChips');
+    const quickFilters = document.getElementById('quickFilters');
+    const search = document.getElementById('search');
+    const sort = document.getElementById('sort');
+
+    const uniqueUses = Array.from(new Set(tools.flatMap(t => t.uses))).slice(0, 8);
+
+    function chip(label, group){
+      const el = document.createElement('button');
+      el.className = 'chip';
+      el.textContent = label;
+      el.dataset.group = group;
+      return el;
+    }
+
+    // Build chips
+    categories.forEach(c => categoryChips.appendChild(chip(c, 'category')));
+    uniqueUses.forEach(u => quickFilters.appendChild(chip(u, 'use')));
+
+    // State
+    let state = { category: 'All', q: '', use: null, sort: 'name' };
+
+    function applyState(){
+      // toggle chip active
+      [...document.querySelectorAll('.chip')].forEach(c => c.classList.remove('active'));
+      [...categoryChips.children].forEach(c => { if(c.textContent === state.category) c.classList.add('active') });
+      [...quickFilters.children].forEach(c => { if(c.textContent === state.use) c.classList.add('active') });
+      render();
+    }
+
+    function render(){
+      grid.innerHTML = '';
+      let items = tools.slice();
+
+      // filter by category
+      if(state.category !== 'All') items = items.filter(t => t.category === state.category);
+      // filter by quick use
+      if(state.use) items = items.filter(t => t.uses.includes(state.use));
+      // search
+      if(state.q){
+        const q = state.q.toLowerCase();
+        items = items.filter(t => (
+          t.name.toLowerCase().includes(q) ||
+          t.purpose.toLowerCase().includes(q) ||
+          t.category.toLowerCase().includes(q) ||
+          t.uses.some(u => u.toLowerCase().includes(q))
+        ));
+      }
+      // sort
+      items.sort((a,b)=>{
+        if(state.sort === 'popular') return b.popular - a.popular;
+        if(state.sort === 'category') return a.category.localeCompare(b.category);
+        return a.name.localeCompare(b.name);
+      });
+
+      // draw cards
+      const frag = document.createDocumentFragment();
+      items.forEach(t => frag.appendChild(cardEl(t)));
+      grid.appendChild(frag);
+
+      // empty state
+      if(items.length === 0){
+        const empty = document.createElement('div');
+        empty.style.gridColumn = '1/-1';
+        empty.style.textAlign = 'center';
+        empty.style.padding = '40px';
+        empty.style.border = '1px dashed rgba(255,255,255,.2)';
+        empty.style.borderRadius = '16px';
+        empty.textContent = 'No tools found. Try a different search or filter.';
+        grid.appendChild(empty);
+      }
+    }
+
+    function cardEl(t){
+      const wrap = document.createElement('article');
+      wrap.className = 'card';
+
+      const img = document.createElement('img');
+      img.className = 'thumb';
+      img.alt = t.name + ' logo';
+      img.src = t.image;
+      wrap.appendChild(img);
+
+      const div = document.createElement('div');
+      div.className = 'content';
+
+      const h = document.createElement('h3');
+      h.className = 'h3';
+      h.textContent = t.name;
+      div.appendChild(h);
+
+      const p = document.createElement('p');
+      p.className = 'purpose';
+      p.textContent = t.purpose;
+      div.appendChild(p);
+
+      const uses = document.createElement('div');
+      uses.className = 'uses';
+      t.uses.forEach(u=>{
+        const tag = document.createElement('span');
+        tag.className = 'tag';
+        tag.textContent = u;
+        uses.appendChild(tag);
+      })
+      div.appendChild(uses);
+
+      const row = document.createElement('div');
+      row.className = 'row';
+      const cat = document.createElement('span');
+      cat.className = 'tag';
+      cat.textContent = t.category;
+      const a = document.createElement('a');
+      a.href = t.link; a.target = '_blank'; a.rel = 'noopener noreferrer';
+      a.className = 'btn'; a.textContent = 'Open Tool';
+      row.appendChild(cat); row.appendChild(a);
+      div.appendChild(row);
+
+      wrap.appendChild(div);
+      return wrap;
+    }
+
+    // Events
+    categoryChips.addEventListener('click', e=>{
+      const el = e.target.closest('.chip'); if(!el) return;
+      state.category = el.textContent; applyState();
+    });
+
+    quickFilters.addEventListener('click', e=>{
+      const el = e.target.closest('.chip'); if(!el) return;
+      state.use = state.use === el.textContent ? null : el.textContent; applyState();
+    });
+
+    search.addEventListener('input', e=>{ state.q = e.target.value; render(); });
+    sort.addEventListener('change', e=>{ state.sort = e.target.value; render(); });
+
+    // init
+    applyState();
+  </script>
+</body>
+</html>
